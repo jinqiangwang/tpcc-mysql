@@ -37,15 +37,15 @@ extern "C" {
  * hack MakeAddress() into a macro so that we can pass Oracle
  * VARCHARs instead of char *s
  */
-#define MakeAddressMacro(str1,str2,city,state,zip) \
+#define MakeAddressMacro(path, str1,str2,city,state,zip) \
 {int tmp; \
- tmp = MakeAlphaString(10,20,str1.arr); \
+ tmp = MakeAlphaString(path,10,20,str1.arr); \
  str1.len = tmp; \
- tmp = MakeAlphaString(10,20,str2.arr); \
+ tmp = MakeAlphaString(path,10,20,str2.arr); \
  str2.len = tmp; \
- tmp = MakeAlphaString(10,20,city.arr); \
+ tmp = MakeAlphaString(path,10,20,city.arr); \
  city.len = tmp; \
- tmp = MakeAlphaString(2,2,state.arr); \
+ tmp = MakeAlphaString(path,2,2,state.arr); \
  state.len = tmp; \
  tmp = MakeNumberString(9,9,zip.arr); \
  zip.len = tmp;}
@@ -54,8 +54,8 @@ extern "C" {
  * while we're at it, wrap MakeAlphaString() and MakeNumberString()
  * in a similar way
  */
-#define MakeAlphaStringMacro(x,y,str) \
-{int tmp; tmp = MakeAlphaString(x,y,str.arr); str.len = tmp;}
+#define MakeAlphaStringMacro(path,x,y,str) \
+{int tmp; tmp = MakeAlphaString(path,x,y,str.arr); str.len = tmp;}
 #define MakeNumberStringMacro(x,y,str) \
 {int tmp; tmp = MakeNumberString(x,y,str.arr); str.len = tmp;}
 
@@ -93,6 +93,8 @@ void gettimestamp (char str[], char *format, size_t n);
 void InitPermutation (void);
 int GetPermutation (void);
 void Lastname(int num, char* name);
+const char * GetSrcFilePath();
+void SetSrcFilePath(const char * path_in);
 
 #endif /* __STDC__ */
     

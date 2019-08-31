@@ -89,7 +89,7 @@ main(argc, argv)
 
   /* Parse args */
 
-    while ( (c = getopt(argc, argv, "h:P:d:u:p:w:l:m:n:")) != -1) {
+    while ( (c = getopt(argc, argv, "h:P:d:u:p:w:l:m:n:s:")) != -1) {
         switch (c) {
         case 'h':
             printf ("option h with value '%s'\n", optarg);
@@ -128,8 +128,12 @@ main(argc, argv)
             printf ("option P with value '%s'\n", optarg);
             port = atoi(optarg);
             break;
+		case 's':
+			printf ("option s with value '%s'\n", optarg);
+			SetSrcFilePath(optarg);
+			break;
         case '?':
-    	    printf("Usage: tpcc_load -h server_host -P port -d database_name -u mysql_user -p mysql_password -w warehouses -l part -m min_wh -n max_wh\n");
+    	    printf("Usage: tpcc_load -h server_host -P port -d database_name -u mysql_user -p mysql_password -w warehouses -l part -m min_wh -n max_wh -s src_dat_file_path\n");
     	    printf("* [part]: 1=ITEMS 2=WAREHOUSE 3=CUSTOMER 4=ORDERS\n");
             exit(0);
         default:
@@ -450,7 +454,7 @@ retry:
 
 		/* Generate Warehouse Data */
 
-                w_name[ MakeAlphaString(6, 10, w_name) ] = 0;
+        w_name[ MakeAlphaString(6, 10, w_name) ] = 0;
 
 		MakeAddress(w_street_1, w_street_2, w_city, w_state, w_zip);
 
